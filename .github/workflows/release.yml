@@ -56,9 +56,9 @@ jobs:
       - name: check SHA1
         run: |
           echo "SHA1SUM  " > ${{ github.workspace }}-SHA1SUM.txt
-          echo "\`" >> ${{ github.workspace }}-SHA1SUM.txt
+          echo "\`\`\`" >> ${{ github.workspace }}-SHA1SUM.txt
           sha1sum ./bin/* >> ${{ github.workspace }}-SHA1SUM.txt
-          echo "\`" >> ${{ github.workspace }}-SHA1SUM.txt
+          echo "\`\`\`" >> ${{ github.workspace }}-SHA1SUM.txt
 
       - name: Release
         uses: softprops/action-gh-release@v1
