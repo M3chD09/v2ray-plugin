@@ -51,23 +51,27 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: my-artifact
-          path: ./build/
+          path: ./bin/
+
+      - name: check SHA1
+        run: sha1sum ./bin/* > ${{ github.workspace }}-SHA1SUM.txt
 
       - name: Release
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
+          body_path: ${{ github.workspace }}-SHA1SUM.txt
           files: |
-            ./build/v2ray-plugin-linux-amd64-${{ steps.vars.outputs.tag }}.tar.gz
-            ./build/v2ray-plugin-linux-386-${{ steps.vars.outputs.tag }}.tar.gz
-            ./build/v2ray-plugin-darwin-amd64-${{ steps.vars.outputs.tag }}.tar.gz
-            ./build/v2ray-plugin-darwin-386-${{ steps.vars.outputs.tag }}.tar.gz
-            ./build/v2ray-plugin-windows-amd64-${{ steps.vars.outputs.tag }}.tar.gz
-            ./build/v2ray-plugin-windows-386-${{ steps.vars.outputs.tag }}.tar.gz
-            ./build/v2ray-plugin-freebsd-amd64-${{ steps.vars.outputs.tag }}.tar.gz
-            ./build/v2ray-plugin-freebsd-386-${{ steps.vars.outputs.tag }}.tar.gz
-            ./build/v2ray-plugin-linux-arm-${{ steps.vars.outputs.tag }}.tar.gz
-            ./build/v2ray-plugin-linux-arm64-${{ steps.vars.outputs.tag }}.tar.gz
-            ./build/v2ray-plugin-linux-mips-${{ steps.vars.outputs.tag }}.tar.gz
+            ./bin/v2ray-plugin-linux-amd64-${{ steps.vars.outputs.tag }}.tar.gz
+            ./bin/v2ray-plugin-linux-386-${{ steps.vars.outputs.tag }}.tar.gz
+            ./bin/v2ray-plugin-darwin-amd64-${{ steps.vars.outputs.tag }}.tar.gz
+            ./bin/v2ray-plugin-darwin-386-${{ steps.vars.outputs.tag }}.tar.gz
+            ./bin/v2ray-plugin-windows-amd64-${{ steps.vars.outputs.tag }}.tar.gz
+            ./bin/v2ray-plugin-windows-386-${{ steps.vars.outputs.tag }}.tar.gz
+            ./bin/v2ray-plugin-freebsd-amd64-${{ steps.vars.outputs.tag }}.tar.gz
+            ./bin/v2ray-plugin-freebsd-386-${{ steps.vars.outputs.tag }}.tar.gz
+            ./bin/v2ray-plugin-linux-arm-${{ steps.vars.outputs.tag }}.tar.gz
+            ./bin/v2ray-plugin-linux-arm64-${{ steps.vars.outputs.tag }}.tar.gz
+            ./bin/v2ray-plugin-linux-mips-${{ steps.vars.outputs.tag }}.tar.gz
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
